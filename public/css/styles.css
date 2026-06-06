@@ -1,0 +1,454 @@
+/* =============================================
+   KROW — Design System completo
+   Modo claro: verde petróleo + crema
+   Modo oscuro: negro carbón + dorado
+   ============================================= */
+
+/* ── Variables ── */
+:root {
+  --bg:             #E8E8E8;
+  --surface:        #F5F5F5;
+  --primary:        #0D4F3C;
+  --accent:         #2ECC9A;
+  --text:           #1a1a1a;
+  --muted:          #5a5a5a;
+  --border:         #D0D0D0;
+  --destructive:    #d4183d;
+  --destructive-fg: #ffffff;
+  --radius:         0.625rem;
+}
+
+[data-theme="dark"] {
+  --bg:       #111118;
+  --surface:  #2C2C35;
+  --primary:  #D4A843;
+  --accent:   #D4A843;
+  --text:     #F5F3EE;
+  --muted:    #6B6B78;
+  --border:   #3A3A45;
+}
+
+/* ════════════════════════════════════════
+   RESET BASE
+════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border-color: var(--border);
+  outline-color: var(--primary);
+}
+
+html { font-size: 16px; }
+
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ════════════════════════════════════════
+   HEADER - LOGO FIJO IZQUIERDA, NAV CENTRADO
+════════════════════════════════════════ */
+.krow-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  background-color: var(--primary);
+  border-bottom: 0.5px solid rgba(255,255,255,0.08);
+  transition: background-color 0.25s;
+}
+
+[data-theme="dark"] .krow-header {
+  background-color: #0D0D12;
+  border-bottom: 0.5px solid var(--border);
+}
+
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0.75rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  min-height: 80px;
+}
+
+/* ---------------- BLOQUE LOGO (fijo izquierda) ---------------- */
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+.logo-image {
+  height: 52px;
+  width: auto;
+  object-fit: contain;
+  display: none;
+}
+
+[data-theme="light"] .logo-light { display: block; }
+[data-theme="light"] .logo-dark  { display: none;  }
+[data-theme="dark"]  .logo-light { display: none;  }
+[data-theme="dark"]  .logo-dark  { display: block; }
+
+.logo-brand {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 1.6rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  line-height: 1.1;
+}
+
+.brand-name {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.8);
+  line-height: 1.2;
+  letter-spacing: 0.3px;
+}
+
+[data-theme="dark"] .brand-name {
+  color: rgba(255,255,255,0.7);
+}
+
+/* Contorno dinámico para la silueta del cuervo */
+.logo-dark, .logo-light {
+  filter: drop-shadow(1px 0px 0px var(--accent)) 
+          drop-shadow(-1px 0px 0px var(--accent)) 
+          drop-shadow(0px 1px 0px var(--accent)) 
+          drop-shadow(0px -1px 0px var(--accent));
+  transition: filter 0.2s ease;
+}
+
+[data-theme="light"] .logo-light {
+  filter: drop-shadow(1px 0px 0px #000000) 
+          drop-shadow(-1px 0px 0px #000000) 
+          drop-shadow(0px 1px 0px #000000) 
+          drop-shadow(0px -1px 0px #000000);
+}
+
+/* ---------------- NAV CENTRAL ---------------- */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  justify-content: center;
+  flex: 1;
+  margin: 0 1rem;
+}
+
+.nav-link {
+  color: rgba(255,255,255,0.75);
+  font-size: 1rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  transition: color 0.15s, background-color 0.15s;
+  white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--accent);
+  background-color: rgba(255,255,255,0.06);
+}
+
+[data-theme="dark"] .nav-link { color: var(--muted); }
+[data-theme="dark"] .nav-link:hover,
+[data-theme="dark"] .nav-link.active {
+  color: var(--accent);
+  background-color: rgba(255,255,255,0.04);
+}
+
+/* ---------------- ACCIONES DERECHA ---------------- */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.action-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255,255,255,0.65);
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: color 0.15s, background-color 0.15s;
+}
+
+.action-btn:hover {
+  color: var(--accent);
+  background-color: rgba(255,255,255,0.06);
+}
+
+[data-theme="dark"] .action-btn { color: var(--muted); }
+[data-theme="dark"] .action-btn:hover {
+  color: var(--accent);
+  background-color: rgba(255,255,255,0.04);
+}
+
+/* Dropdown usuario */
+.dropdown { position: relative; }
+
+.account-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: transparent;
+  border: 0.5px solid rgba(255,255,255,0.15);
+  border-radius: var(--radius);
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: border-color 0.15s, background-color 0.15s;
+}
+
+.account-btn:hover {
+  border-color: var(--accent);
+  background-color: rgba(255,255,255,0.04);
+}
+
+[data-theme="dark"] .account-btn {
+  border-color: var(--border);
+  color: var(--text);
+}
+
+.account-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  color: var(--primary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme="dark"] .account-avatar { color: #111118; }
+
+.account-name {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.chevron {
+  transition: transform 0.2s;
+  opacity: 0.6;
+}
+.account-btn[aria-expanded="true"] .chevron { transform: rotate(180deg); }
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 200px;
+  background-color: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  padding: 0.375rem;
+  display: none;
+  flex-direction: column;
+  gap: 2px;
+  animation: fadeDown 0.15s ease;
+  z-index: 200;
+}
+.dropdown-menu.open { display: flex; }
+
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: calc(var(--radius) - 2px);
+  font-size: 0.875rem;
+  color: var(--text);
+  text-decoration: none;
+  transition: background-color 0.12s;
+  cursor: pointer;
+}
+.dropdown-item svg { color: var(--muted); flex-shrink: 0; }
+.dropdown-item:hover {
+  background-color: var(--bg);
+  color: var(--primary);
+}
+[data-theme="dark"] .dropdown-item:hover { color: var(--accent); }
+.dropdown-item-danger { color: var(--destructive); }
+.dropdown-item-danger:hover {
+  background-color: rgba(212,24,61,0.08);
+  color: var(--destructive);
+}
+.dropdown-divider {
+  border: none;
+  border-top: 0.5px solid var(--border);
+  margin: 0.25rem 0;
+}
+
+/* Botones guest */
+.btn-ghost-sm {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius);
+  border: 0.5px solid rgba(255,255,255,0.3);
+  background: transparent;
+  color: rgba(255,255,255,0.85);
+  text-decoration: none;
+  transition: all 0.15s;
+  white-space: nowrap;
+}
+.btn-ghost-sm:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-primary-sm {
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.4rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  background-color: var(--accent);
+  color: var(--primary);
+  text-decoration: none;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+[data-theme="dark"] .btn-primary-sm { color: #111118; }
+.btn-primary-sm:hover { opacity: 0.85; }
+
+/* Hamburguesa (mobile) */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: var(--radius);
+}
+.hamburger span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 2px;
+  transition: transform 0.2s, opacity 0.2s;
+}
+.hamburger.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* ===== responsive ===== */
+@media (max-width: 900px) {
+  .header-inner { padding: 0.75rem 1.5rem; }
+  .account-name { display: none; }
+}
+
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  
+  .header-nav {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: var(--primary);
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem 1.5rem;
+    gap: 0.5rem;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    z-index: 99;
+  }
+  [data-theme="dark"] .header-nav {
+    background-color: #0D0D12;
+    border-top: 0.5px solid var(--border);
+  }
+  .header-nav.open { display: flex; }
+  .nav-link { width: 100%; text-align: center; padding: 0.6rem; }
+  
+  .btn-ghost-sm, .btn-primary-sm { display: none; }
+  .header-actions .action-btn:first-of-type { margin-left: auto; }
+}
+
+@media (max-width: 480px) {
+  .header-inner { padding: 0.5rem 1rem; }
+  .logo-text { font-size: 1.3rem; }
+  .logo-image { height: 40px; }
+  .brand-name { font-size: 0.7rem; }
+}
+
+/* ════════════════════════════════════════
+   COMPONENTES ADICIONALES
+════════════════════════════════════════ */
+.card {
+  background-color: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  margin: 2rem auto;
+  max-width: 800px;
+  text-align: center;
+}
+
+h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+p {
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.tag {
+  display: inline-block;
+  background-color: var(--accent);
+  color: var(--primary);
+  padding: 0.2rem 1rem;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+[data-theme="dark"] .tag {
+  color: #111118;
+}
