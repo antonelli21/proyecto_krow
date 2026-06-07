@@ -168,7 +168,7 @@ CREATE TABLE postulacion (
         'Postulado',
         'En Revision',
         'Preseleccionado',
-        'Aceptado',
+        'En Contacto',
         'Rechazado'
     ) DEFAULT 'Postulado',
 
