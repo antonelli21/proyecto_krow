@@ -1,20 +1,72 @@
+<?php
+// Configurar ruta base del proyecto
+if (!isset($basePath)) {
+    $basePath = '/proyecto_krow';
+}
+if (!isset($publicPath)) {
+    $publicPath = $basePath . '/public';
+}
+// Cerrar bloque PHP para salida de HTML/plantilla
+?>
+
+<?php
+// Valor por defecto para rol (debe venir de sesión / auth en implementación real)
+if (!isset($rol)) {
+  $rol = 'empresa'; // Cambiar a 'estudiante' o 'admin' según el caso
+}
+
+// Asegurar bandera isIncluded
+if (!isset($isIncluded)) {
+  $isIncluded = false;
+}
+
+// Generar navItems por defecto si no existen
+if (!isset($navItems) || !is_array($navItems)) {
+  if ($rol === 'estudiante') {
+    $navItems = [
+      ['url' => '#', 'label' => 'Inicio', 'active' => false],
+      ['url' => '#', 'label' => 'Empresas', 'active' => false],
+      ['url' => '#', 'label' => 'Mis Postulaciones', 'active' => false],
+      ['url' => '#', 'label' => 'Ayuda', 'active' => false],
+    ];
+  } elseif ($rol === 'empresa') {
+    $navItems = [
+      ['url' => '#', 'label' => 'Inicio', 'active' => false],
+      ['url' => '#', 'label' => 'Empresas', 'active' => false],
+      ['url' => '#', 'label' => 'Panel de Empresa', 'active' => false],
+      ['url' => '#', 'label' => 'Ayuda', 'active' => false],
+    ];
+  } else {
+    $navItems = [
+      ['url' => '#', 'label' => 'Inicio', 'active' => false],
+      ['url' => '#', 'label' => 'Empresas', 'active' => false],
+      ['url' => '#', 'label' => 'Administrar', 'active' => false],
+      ['url' => '#', 'label' => 'Ayuda', 'active' => false],
+    ];
+  }
+}
+
+?>
+
+<?php if (!$isIncluded): ?>
 <!DOCTYPE html>
 <html lang="es" data-theme="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KROW - Banco de Trabajo</title>
-  <link rel="stylesheet" href="../public/css/styles.css">
+  <title><?php echo isset($pageTitle) ? $pageTitle . ' - KROW' : 'KROW - Banco de Trabajo'; ?></title>
+  <link rel="stylesheet" href="<?php echo $publicPath; ?>/css/styles.css">
 </head>
 <body>
+<?php endif; ?>
 
 <header class="krow-header" id="krow-header">
   <div class="header-inner">
     
     <!-- IZQUIERDA: Logo fijo con nombre -->
-    <a href="/index.php" class="header-logo">
-      <img src="../public/img/logo_claro.png" alt="KROW" class="logo-image logo-light">
-      <img src="../public/img/logo_oscuro.png" alt="KROW" class="logo-image logo-dark">
+    <a href="<?php echo $basePath; ?>/index.php" class="header-logo">
+      <img src="<?php echo $publicPath; ?>/img/logo_claro.png" alt="KROW" class="logo-image logo-light">
+      <img src="<?php echo $publicPath; ?>/img/logo_oscuro.png" alt="KROW" class="logo-image logo-dark">
       <div class="logo-brand">
         <span class="logo-text">KROW</span>
         <span class="brand-name">Banco de Trabajo</span>
@@ -23,10 +75,11 @@
 
     <!-- CENTRO: Navegación -->
     <nav class="header-nav" id="header-nav">
-      <a href="#" class="nav-link active">Inicio</a>
-      <a href="#" class="nav-link">Empresas</a>
-      <a href="#" class="nav-link">Mis Postulaciones</a>
-      <a href="#" class="nav-link">Ayuda</a>
+      <?php foreach ($navItems as $item): ?>
+      <a href="<?php echo $item['url']; ?>" class="nav-link <?php echo $item['active'] ? 'active' : ''; ?>">
+        <?php echo $item['label']; ?>
+      </a>
+      <?php endforeach; ?>
     </nav>
 
     <!-- DERECHA: Acciones -->
@@ -61,15 +114,15 @@
           </svg>
         </button>
         <div class="dropdown-menu" id="account-menu" role="menu">
-          <a href="#" class="dropdown-item" role="menuitem">
+          <a href="<?php echo $basePath; ?>/vistas/estudiante/perfil-estudiante.php" class="dropdown-item" role="menuitem">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
             Mi Perfil
           </a>
-          <a href="#" class="dropdown-item" role="menuitem">
+          <a href="<?php echo $basePath; ?>/vistas/estudiante/mensajes-estudiante.php" class="dropdown-item" role="menuitem">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
             Mensajes
           </a>
-          <a href="#" class="dropdown-item" role="menuitem">
+          <a href="<?php echo $basePath; ?>/vistas/configuracion.php" class="dropdown-item" role="menuitem">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
             Configuración
           </a>
@@ -82,8 +135,8 @@
       </div>
 
       <!-- Botones Guest -->
-      <a href="/vistas/auth/login.php" class="btn-ghost-sm">Ingresar</a>
-      <a href="/vistas/auth/registro-estudiante.php" class="btn-primary-sm">Registro</a>
+      <a href="<?php echo $basePath; ?>/vistas/auth/login.php" class="btn-ghost-sm">Ingresar</a>
+      <a href="<?php echo $basePath; ?>/vistas/auth/registro-estudiante.php" class="btn-primary-sm">Registro</a>
 
       <!-- Hamburguesa mobile -->
       <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
@@ -96,7 +149,8 @@
   </div>
 </header>
 
-
-<script src="../public/js/main.js"></script>
+<?php if (!$isIncluded): ?>
+<script src="<?php echo $publicPath; ?>/js/main.js"></script>
+<?php endif; ?>
 </body>
 </html>
