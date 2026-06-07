@@ -269,4 +269,4 @@ CREATE TABLE oferta_habilidad (
     FOREIGN KEY (id_habilidad)
         REFERENCES habilidad(id_habilidad)
 );
-
+commit;
