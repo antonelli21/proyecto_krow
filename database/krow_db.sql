@@ -30,7 +30,7 @@ CREATE TABLE estudiante (
     legajo VARCHAR(20) UNIQUE NOT NULL,
     
 	fecha_nacimiento DATE,
-    
+
     telefono VARCHAR(15),
     
     id_carrera INT NOT NULL,
@@ -122,6 +122,15 @@ CREATE TABLE oferta (
 
     requisitos TEXT,
 
+    area varchar(50),
+
+    experiencia_requerida ENUM(
+        'Sin Experiencia',
+        'Junior',
+        'Semi Senior',
+        'Senior'
+    ) NOT NULL,
+
     tipo_oferta ENUM(
         'Pasantia',
         'Practica Profesional',
@@ -139,7 +148,8 @@ CREATE TABLE oferta (
 	salario_max INT UNSIGNED,
     
     
-    ubicacion VARCHAR(100),
+      id_localidad INT,
+    ),
 
     fecha_publicacion DATETIME DEFAULT CURRENT_TIMESTAMP,
 
@@ -153,6 +163,22 @@ CREATE TABLE oferta (
 
     FOREIGN KEY (id_empresa)
     REFERENCES empresa(id_empresa)
+    FOREIGN KEY (id_localidad)
+    REFERENCES localidad(id_localidad
+);
+
+
+CREATE TABLE oferta_carrera (
+    id_oferta INT,
+    id_carrera INT,
+
+    PRIMARY KEY(id_oferta, id_carrera),
+
+    FOREIGN KEY (id_oferta)
+        REFERENCES oferta(id_oferta),
+
+    FOREIGN KEY (id_carrera)
+        REFERENCES carrera(id_carrera)
 );
 
 
@@ -270,3 +296,19 @@ CREATE TABLE oferta_habilidad (
         REFERENCES habilidad(id_habilidad)
 );
 commit;
+
+CREATE TABLE provincia (
+    id_provincia INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE localidad (
+    id_localidad INT AUTO_INCREMENT PRIMARY KEY,
+
+    id_provincia INT NOT NULL,
+
+    nombre VARCHAR(100) NOT NULL,
+
+    FOREIGN KEY (id_provincia)
+        REFERENCES provincia(id_provincia)
+);

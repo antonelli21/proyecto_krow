@@ -169,3 +169,158 @@ document.addEventListener('DOMContentLoaded', () => {
  
 });
  
+
+/* ════════════════════════════════════════
+   9. FILTROS SIDEBAR - Accordions dinámicos
+   Maneja apertura/cierre de acordeones
+════════════════════════════════════════ */
+
+function initFiltersSidebar() {
+  // Accordions toggle
+  const accordions = document.querySelectorAll('.filter-accordion');
+  
+  accordions.forEach(accordion => {
+    const header = accordion.querySelector('.accordion-header');
+    
+    if (header && !accordion.hasAttribute('data-initialized')) {
+      accordion.setAttribute('data-initialized', 'true');
+      
+      header.addEventListener('click', () => {
+        accordion.classList.toggle('open');
+      });
+    }
+  });
+  
+  // Provincia y Localidad (cascada)
+  const provinciaSelect = document.getElementById('provincia');
+  const localidadSelect = document.getElementById('localidad');
+  
+  if (provinciaSelect && localidadSelect) {
+    // Datos de ejemplo - puedes expandir con más provincias/localidades
+    const localidadesPorProvincia = {
+      'Buenos Aires': ['La Plata', 'Mar del Plata', 'Bahía Blanca', 'Tandil', 'San Nicolás'],
+      'CABA': ['Palermo', 'Recoleta', 'Belgrano', 'Nuñez', 'Caballito'],
+      'Córdoba': ['Córdoba Capital', 'Villa Carlos Paz', 'Río Cuarto', 'San Francisco'],
+      'Santa Fe': ['Rosario', 'Santa Fe Capital', 'Rafaela', 'Venado Tuerto'],
+      'Mendoza': ['Mendoza Capital', 'San Rafael', 'Godoy Cruz', 'Luján de Cuyo'],
+      'default': ['Seleccioná una provincia primero']
+    };
+    
+    provinciaSelect.addEventListener('change', (e) => {
+      const provincia = e.target.value;
+      const localidades = localidadesPorProvincia[provincia] || localidadesPorProvincia['default'];
+      
+      // Limpiar y habilitar select de localidad
+      localidadSelect.innerHTML = '<option value="" disabled selected>Seleccioná una localidad</option>';
+      localidades.forEach(localidad => {
+        const option = document.createElement('option');
+        option.value = localidad.toLowerCase().replace(/\s+/g, '-');
+        option.textContent = localidad;
+        localidadSelect.appendChild(option);
+      });
+      
+      localidadSelect.disabled = false;
+    });
+  }
+  
+  // Tags de tecnologías
+  const inputTech = document.getElementById('tecnologia-input');
+  const btnAdd = document.getElementById('btn-add-tag');
+  const containerTags = document.getElementById('tags-container');
+  
+  if (inputTech && btnAdd && containerTags) {
+    let tagsList = [];
+    
+    function createTag(text) {
+      const cleanedText = text.trim();
+      
+      if (cleanedText === '') return;
+      if (tagsList.includes(cleanedText.toLowerCase())) {
+        inputTech.value = '';
+        return;
+      }
+      
+      tagsList.push(cleanedText.toLowerCase());
+      
+      const tagDiv = document.createElement('div');
+      tagDiv.classList.add('tech-tag');
+      
+      tagDiv.innerHTML = `
+        <span>${escapeHtml(cleanedText)}</span>
+        <input type="hidden" name="tecnologias[]" value="${escapeHtml(cleanedText.toLowerCase())}">
+        <button type="button" class="btn-remove-tag">&times;</button>
+      `;
+      
+      tagDiv.querySelector('.btn-remove-tag').addEventListener('click', () => {
+        tagsList = tagsList.filter(t => t !== cleanedText.toLowerCase());
+        tagDiv.remove();
+      });
+      
+      containerTags.appendChild(tagDiv);
+      inputTech.value = '';
+    }
+    
+    // Función auxiliar para escapar HTML
+    function escapeHtml(str) {
+      const div = document.createElement('div');
+      div.textContent = str;
+      return div.innerHTML;
+    }
+    
+    btnAdd.addEventListener('click', () => {
+      createTag(inputTech.value);
+    });
+    
+    inputTech.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        createTag(inputTech.value);
+      }
+    });
+  }
+}
+
+// Inicializar filtros cuando el DOM esté listo
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initFiltersSidebar);
+} else {
+  initFiltersSidebar();
+}
+
+/* ════════════════════════════════════════
+   10. ANIMACIONES SMOOTH PARA FILTROS
+   Efecto de fade al hacer scroll
+════════════════════════════════════════ */
+
+function animateFilterGroups() {
+  const filterGroups = document.querySelectorAll('.filter-group, .filter-accordion');
+  
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '0';
+        entry.target.style.transform = 'translateY(20px)';
+        entry.target.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+        
+        setTimeout(() => {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }, 50);
+        
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '50px' });
+  
+  filterGroups.forEach(group => {
+    group.style.opacity = '0';
+    observer.observe(group);
+  });
+}
+
+// Ejecutar animación después de cargar
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', animateFilterGroups);
+} else {
+  animateFilterGroups();
+}
