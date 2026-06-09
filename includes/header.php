@@ -9,7 +9,7 @@ if (!isset($publicPath)) {
 
 // 2. VALOR POR DEFECTO PARA EL ROL
 if (!isset($rol)) {
-    $rol = 'invitado'; 
+    $rol = 'invitado';
 }
 
 // Asegurar bandera isIncluded
@@ -100,7 +100,8 @@ if (!isset($navItems) || !is_array($navItems)) {
         </svg>
       </button>
 
-      <?php if ($rol !== 'invitado'): ?>
+      <!-- Acciones para usuario logueado (todos los roles excepto invitado) -->
+      <div id="logged-in-actions" style="display:<?php echo $rol !== 'invitado' ? 'flex' : 'none'; ?>; align-items:center; gap:0.75rem;">
         <button class="action-btn notif-btn" aria-label="Notificaciones">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
             <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
@@ -110,16 +111,24 @@ if (!isset($navItems) || !is_array($navItems)) {
 
         <div class="dropdown" id="account-dropdown">
           <button class="account-btn" id="account-toggle" aria-haspopup="true" aria-expanded="false">
-            <div class="account-avatar"><?php echo strtoupper(substr($rol, 0, 1)); ?></div>
-            <span class="account-name">Mi Cuenta</span>
+            <div class="account-avatar" id="avatar-letter"><?php echo strtoupper(substr($rol, 0, 1)); ?></div>
+            <span class="account-name" id="account-label">Mi Cuenta</span>
             <svg class="chevron" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="6 9 12 15 18 9"/>
             </svg>
           </button>
           <div class="dropdown-menu" id="account-menu" role="menu">
-            <a href="<?php echo $basePath; ?>/vistas/<?php echo $rol; ?>/perfil-<?php echo $rol; ?>.php" class="dropdown-item" role="menuitem">
+            <a href="<?php echo $basePath; ?>/vistas/<?php echo $rol; ?>/perfil-<?php echo $rol; ?>.php" id="link-perfil" class="dropdown-item" role="menuitem">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
               Mi Perfil
+            </a>
+            <a href="<?php echo $basePath; ?>/vistas/mensajes.php" class="dropdown-item" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Mensajes
+            </a>
+            <a href="<?php echo $basePath; ?>/vistas/notificaciones.php" class="dropdown-item" role="menuitem">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              Notificaciones
             </a>
             <a href="<?php echo $basePath; ?>/vistas/configuracion.php" class="dropdown-item" role="menuitem">
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
@@ -132,10 +141,13 @@ if (!isset($navItems) || !is_array($navItems)) {
             </a>
           </div>
         </div>
-      <?php else: ?>
+      </div>
+
+      <!-- Acciones para invitado -->
+      <div id="guest-actions" style="display:<?php echo $rol === 'invitado' ? 'flex' : 'none'; ?>; align-items:center; gap:0.75rem;">
         <a href="<?php echo $basePath; ?>/vistas/auth/login.php" class="btn-ghost-sm">Ingresar</a>
         <a href="<?php echo $basePath; ?>/vistas/auth/registro-estudiante.php" class="btn-primary-sm">Registro</a>
-      <?php endif; ?>
+      </div>
 
       <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false">
         <span></span>

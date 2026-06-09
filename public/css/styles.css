@@ -6,11 +6,11 @@
 
 /* ── Variables ── */
 :root {
-  --bg:             #E8E8E8;
-  --surface:        #F5F5F5;
+  --bg:             #ffffff;
+  --surface:        #bebebe;
   --primary:        #0D4F3C;
   --accent:         #2ECC9A;
-  --text:           #1a1a1a;
+  --text:           #000000;
   --muted:          #5a5a5a;
   --border:         #D0D0D0;
   --destructive:    #d4183d;
@@ -78,9 +78,8 @@ main {
 }
 
 .header-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 0.75rem 2rem;
+  width: 100%;
+  padding: 0.75rem 16px 0.75rem 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -88,7 +87,7 @@ main {
   min-height: 80px;
 }
 
-/* ---------------- BLOQUE LOGO (fijo izquierda) ---------------- */
+/* El logo ocupa exactamente el ancho del sidebar para quedar alineado */
 .header-logo {
   display: flex;
   align-items: center;
@@ -96,6 +95,8 @@ main {
   text-decoration: none;
   flex-shrink: 0;
   z-index: 10;
+  width: var(--sidebar-w);
+  padding-left: 18px;
 }
 
 .logo-image {
@@ -146,12 +147,11 @@ main {
 }
 
 [data-theme="light"] .logo-light {
-  filter: drop-shadow(1px 0px 0px #000000) 
-          drop-shadow(-1px 0px 0px #000000) 
-          drop-shadow(0px 1px 0px #000000) 
-          drop-shadow(0px -1px 0px #000000);
+  filter: drop-shadow(1px 0px 0px #2ECC9A) 
+          drop-shadow(-1px 0px 0px #2ECC9A) 
+          drop-shadow(0px 1px 0px #2ECC9A) 
+          drop-shadow(0px -1px 0px #2ECC9A);
 }
-
 /* ---------------- NAV CENTRAL ---------------- */
 .header-nav {
   display: flex;
@@ -743,7 +743,7 @@ main{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: var(--primary);
+  color: #111118;
   font-size: 11px;
   font-weight: bold;
 }
@@ -761,7 +761,7 @@ main{
   transform: translate(-50%, -50%);
   width: 8px;
   height: 8px;
-  background-color: var(--primary);
+  background-color: #111118;
   border-radius: 50%;
 }
 
@@ -961,16 +961,12 @@ body {
    PAGE BODY — grid 3 columnas
 ════════════════════════════════════════ */
 .page-body {
-  margin-top: var(--header-h);
   flex: 1;
   display: grid;
   grid-template-columns: var(--sidebar-w) 1fr var(--right-w);
   align-items: start;
-  max-width: 1400px;
   width: 100%;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px 16px 0;
+  padding: 20px 0 0 0;
   gap: 16px;
 }
  
@@ -1025,7 +1021,7 @@ body {
   margin-top: 14px;
   padding: 10px;
   background: var(--accent);
-  color: var(--primary);
+  color: #0D1A13;
   border: none;
   border-radius: var(--radius);
   font-family: var(--font-display);
@@ -1039,7 +1035,6 @@ body {
   opacity: .88;
   box-shadow: var(--shadow-accent);
 }
-[data-theme="dark"] .btn-apply-filters { color: #111118; }
  
 /* ════════════════════════════════════════
    MAIN CONTENT
@@ -1049,6 +1044,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 14px;
+  padding-right: 8px;
 }
  
 .content-head {
@@ -1281,6 +1277,7 @@ body {
   gap: 14px;
   position: sticky;
   top: calc(var(--header-h) + 16px);
+  padding-right: 16px;
 }
  
 .panel-card {
@@ -1445,6 +1442,8 @@ body {
   text-align: center;
   padding: 9px;
   margin-bottom: 6px;
+  color: #0D1A13;
+  border-color: var(--primary);
 }
  
 /* Role badge en header */
@@ -1519,7 +1518,60 @@ body {
 }
  
 /* ════════════════════════════════════════
-   RESPONSIVE LAYOUT
+   SIDEBAR COLAPSABLE
+════════════════════════════════════════ */
+.sidebar-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 0 12px 0;
+  border-bottom: 0.5px solid var(--border);
+  margin-bottom: 14px;
+  color: var(--text);
+}
+
+.sidebar-toggle-btn span {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  color: var(--text-muted);
+}
+
+.sidebar-toggle-icon {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+}
+
+/* Cuando está colapsado, rotar la flecha */
+.sidebar-filtros.collapsed .sidebar-toggle-icon {
+  transform: rotate(180deg);
+}
+
+/* Ocultar el contenido del form al colapsar */
+.sidebar-filtros.collapsed .filters-form {
+  display: none;
+}
+
+/* Sidebar colapsado — solo muestra el botón */
+.sidebar-filtros.collapsed {
+  padding: 14px 10px;
+  overflow: hidden;
+}
+
+/* ════════════════════════════════════════
+   RESPONSIVE LAYOUT (actualizado)
 ════════════════════════════════════════ */
 @media (max-width: 1100px) {
   :root { --right-w: 240px; }

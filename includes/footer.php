@@ -1,7 +1,7 @@
 <?php
 // Configurar ruta base del proyecto
 if (!isset($basePath)) {
-    $basePath = '/proyecto_krow';
+    $basePath = 'guardalo_aca/proyecto_krow';
 }
 if (!isset($publicPath)) {
     $publicPath = $basePath . '/public';

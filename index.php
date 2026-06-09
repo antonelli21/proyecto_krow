@@ -1,8 +1,16 @@
-PHP
+
 <?php
 // Supongamos que acá arriba iniciás sesión y obtenés el rol del usuario desde la base de datos
 // $rol_usuario puede ser: 'invitado', 'estudiante', 'empresa' o 'admin'
-$rol_usuario = $_SESSION['user_role'] ?? 'invitado'; 
+$rol_usuario = $_SESSION['user_role'] ?? 'invitado';
+
+// Rutas base del proyecto — una sola fuente de verdad para todos los partials
+$basePath   = '/guardalo_aca/proyecto_krow';
+$publicPath = $basePath . '/public';
+
+// Variables que usan header.php y footer.php
+$rol        = $rol_usuario;
+$isIncluded = true;
 ?>
 <!DOCTYPE html>
 <html lang="es" data-theme="dark" data-role="<?php echo $rol_usuario; ?>">
@@ -10,7 +18,7 @@ $rol_usuario = $_SESSION['user_role'] ?? 'invitado';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KROW — Portal de Empleos</title>
-    <link rel="stylesheet" href="/public/css/styles.css">
+    <link rel="stylesheet" href="<?php echo $publicPath; ?>/css/styles.css">
 </head>
 <body>
 
@@ -82,6 +90,6 @@ $rol_usuario = $_SESSION['user_role'] ?? 'invitado';
         <button class="role-btn" data-role="admin">Admin</button>
     </div>
 
-    <script src="/public/js/main.js"></script>
+    <script src="<?php echo $publicPath; ?>/js/main.js"></script>
 </body>
 </html>

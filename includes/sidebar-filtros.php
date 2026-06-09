@@ -5,7 +5,7 @@
 <style>
 .btn-aplicar-filtros {
   background-color: var(--accent);
-  color: var(--primary);
+  color: #0D1A13;
   border: none;
   padding: 0.75rem 1rem;
   border-radius: var(--radius);
@@ -19,7 +19,10 @@
 </style>
 
 <aside class="sidebar-filters">
-  <h3>Filtros</h3>
+  <button class="sidebar-toggle-btn" id="sidebar-toggle" aria-label="Colapsar filtros">
+    <span>Filtros</span>
+    <span class="sidebar-toggle-icon" id="sidebar-toggle-symbol" style="font-size:1.3rem; font-weight:700; line-height:1;">−</span>
+  </button>
 
   <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="GET" class="filters-form">
       
