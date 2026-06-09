@@ -1,4 +1,5 @@
 <?php
+
 /**
  * index.php
  * Landing page / Página de bienvenida
@@ -19,20 +20,21 @@ if (isset($_SESSION['usuario_id'])) {
 ?>
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Krow - Plataforma de Empleo Comunitaria</title>
-    <link rel="stylesheet" href="public/css/styles.css">
 </head>
+
 <body class="dark-mode">
     <?php include 'includes/header.php'; ?>
-    
+
     <main class="landing">
         <div class="hero">
             <h1>Bienvenido a Krow</h1>
             <p>La plataforma de empleo basada en comunidad y reputación</p>
-            
+
             <div class="cta-buttons">
                 <a href="vistas/auth/login.php" class="btn btn-primary btn-lg">Iniciar Sesión</a>
                 <div class="registro-opciones">
@@ -41,7 +43,7 @@ if (isset($_SESSION['usuario_id'])) {
                 </div>
             </div>
         </div>
-        
+
         <div class="features">
             <div class="feature">
                 <h3>Para Estudiantes</h3>
@@ -56,7 +58,7 @@ if (isset($_SESSION['usuario_id'])) {
                 <p>Vota y contribuye a una comunidad transparente y confiable</p>
             </div>
         </div>
-        
+
         <div class="info-section">
             <h2>¿Cómo funciona Krow?</h2>
             <ol>
@@ -68,7 +70,8 @@ if (isset($_SESSION['usuario_id'])) {
             </ol>
         </div>
     </main>
-    
+
     <?php include 'includes/footer.php'; ?>
 </body>
+
 </html>
