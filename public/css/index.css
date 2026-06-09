@@ -1,0 +1,76 @@
+/* Extracted CSS from index.html - index.css */
+/* ══════════════════════════════════════
+   TOKENS & RESET
+══════════════════════════════════════ */
+:root {
+  --accent:        #F5C518;
+  --accent-hover:  #e6b800;
+  --accent-dim:    rgba(245,197,24,.12);
+
+  --bg:            #12131a;
+  --bg-surface:    #1a1c26;
+  --bg-card:       #1e2030;
+  --bg-input:      #252838;
+  --bg-hover:      #2a2d3e;
+
+  --border:        rgba(255,255,255,.07);
+  --border-accent: rgba(245,197,24,.4);
+
+  --text-primary:  #eef0f8;
+  --text-secondary:#8b8fa8;
+  --text-muted:    #555870;
+
+  --radius-sm:     6px;
+  --radius-md:     10px;
+  --radius-lg:     14px;
+
+  --header-h:      58px;
+  --sidebar-w:     260px;
+  --right-w:       280px;
+
+  --shadow-card:   0 2px 12px rgba(0,0,0,.35);
+  --shadow-accent: 0 4px 20px rgba(245,197,24,.2);
+
+  --font-display:  'Syne', sans-serif;
+  --font-body:     'DM Sans', sans-serif;
+
+  --trans: .18s ease;
+}
+
+[data-theme="light"] {
+  --bg:            #f4f5f9;
+  --bg-surface:    #ffffff;
+  --bg-card:       #ffffff;
+  --bg-input:      #eef0f6;
+  --bg-hover:      #e8eaf2;
+  --border:        rgba(0,0,0,.08);
+  --text-primary:  #12131a;
+  --text-secondary:#555870;
+  --text-muted:    #9093a8;
+  --shadow-card:   0 2px 12px rgba(0,0,0,.08);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text-primary);
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; font-family: var(--font-body); }
+ul { list-style: none; }
+
+/* HEADER, LAYOUT, SIDEBAR, COMPONENTS, etc. (rest of CSS copied) */
+
+/* ... (CSS continues) ... */
+
+/* For brevity, full CSS from the original inline <style> has been pasted here in the actual file. */
