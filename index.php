@@ -1,77 +1,94 @@
 <?php
-
-/**
- * index.php
- * Landing page / Página de bienvenida
- * Redirige al Login si no hay sesión activa
- */
-
 session_start();
 
-// Si hay sesión activa, redirigir al home correspondiente
-if (isset($_SESSION['usuario_id'])) {
-    if ($_SESSION['usuario_tipo'] === 'empresa') {
-        header('Location: vistas/empresa/home-empresa.php');
-    } else {
-        header('Location: vistas/estudiante/home-estudiante.php');
-    }
-    exit;
-}
+// 1. Forzamos la ruta exacta de tu URL en XAMPP
+$basePath = '/guardalo_aca/proyecto_krow';
+$publicPath = $basePath . '/public';
+
+// 2. Sincronizamos los nombres de los roles para el header
+$rol_usuario = $_SESSION['user_role'] ?? 'estudiante'; 
+$rol = $rol_usuario; 
 ?>
 <!DOCTYPE html>
-<html lang="es">
-
+<html lang="es" data-theme="dark" data-role="<?php echo $rol_usuario; ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Krow - Plataforma de Empleo Comunitaria</title>
+    <title>KROW — Portal de Empleos</title>
+    <link rel="stylesheet" href="<?php echo $publicPath; ?>/css/styles.css">
 </head>
+<body>
+    <?php include './includes/header.php'; ?>
 
-<body class="dark-mode">
-    <?php include 'includes/header.php'; ?>
+    <div class="page-body">
+        
+        <aside class="sidebar-filtros">
+            <?php include './includes/sidebar-filtros.php'; ?>
+        </aside>
 
-    <main class="landing">
-        <div class="hero">
-            <h1>Bienvenido a Krow</h1>
-            <p>La plataforma de empleo basada en comunidad y reputación</p>
-
-            <div class="cta-buttons">
-                <a href="vistas/auth/login.php" class="btn btn-primary btn-lg">Iniciar Sesión</a>
-                <div class="registro-opciones">
-                    <a href="vistas/auth/registro-estudiante.php" class="btn btn-secondary">Registrate como Estudiante</a>
-                    <a href="vistas/auth/registro-empresa.php" class="btn btn-secondary">Registrate como Empresa</a>
+        <main class="main-content">
+            <div class="content-head">
+                <div>
+                    <h2 class="content-title">Ofertas de Empleo</h2>
+                    <p class="result-count">Se encontraron 124 resultados</p>
                 </div>
+                <select class="sort-select">
+                    <option>Más recientes</option>
+                    <option>Menor salario</option>
+                    <option>Mayor salario</option>
+                </select>
             </div>
-        </div>
 
-        <div class="features">
-            <div class="feature">
-                <h3>Para Estudiantes</h3>
-                <p>Busca ofertas de empleo, construye tu reputación y conecta con empresas</p>
-            </div>
-            <div class="feature">
-                <h3>Para Empresas</h3>
-                <p>Publica ofertas, encuentra talento y evalúa candidatos basado en reputación</p>
-            </div>
-            <div class="feature">
-                <h3>Sistema de Reputación</h3>
-                <p>Vota y contribuye a una comunidad transparente y confiable</p>
-            </div>
-        </div>
+            <article class="job-card">
+                <div class="job-card-top">
+                    <div class="company-logo">MC</div>
+                    <div class="job-info">
+                        <h3 class="job-title">Fullstack Developer Node/React</h3>
+                        <p class="job-meta"><span>MegaCorp</span> • <span>Remoto</span></p>
+                    </div>
+                    <div class="job-actions">
+                        <button class="btn-bookmark"><i class="bi bi-bookmark"></i></button>
+                    </div>
+                </div>
+                <div class="job-badges">
+                    <span class="badge badge-salary">$450.000 / mes</span>
+                    <span class="badge badge-outline">Full-time</span>
+                    <span class="badge badge-new">Nuevo</span>
+                </div>
+                <p class="job-desc">
+                    Buscamos un desarrollador proactivo orientado a resultados para sumarse al equipo de core-banking...
+                </p>
+                <div class="job-footer">
+                    <span class="job-date">Publicado hace 2 días</span>
+                    <button class="btn-ver">Ver oferta</button>
+                </div>
+            </article>
 
-        <div class="info-section">
-            <h2>¿Cómo funciona Krow?</h2>
-            <ol>
-                <li>Crea tu cuenta como estudiante o empresa</li>
-                <li>Completa tu perfil con tu información</li>
-                <li>Explora ofertas o publica nuevas posiciones</li>
-                <li>Conecta con candidatos o empresas</li>
-                <li>Contribuye a la comunidad con votos de reputación</li>
-            </ol>
-        </div>
-    </main>
+            <div class="pagination">
+                <button class="pg-btn active">1</button>
+                <button class="pg-btn">2</button>
+                <button class="pg-btn">3</button>
+            </div>
+        </main>
 
-    <?php include 'includes/footer.php'; ?>
+        <aside id="right-panel" class="right-panel">
+            <!-- El contenido se llena dinámicamente con JS según el rol -->
+        </aside>
+
+    </div>
+
+    <div class="site-footer-wrap">
+        <?php include './includes/footer.php'; ?>
+    </div>
+
+    <div class="role-switcher">
+        <p class="role-switcher-title">Modo de Vista (Demo)</p>
+        <button class="role-btn" data-role="invitado">Invitado</button>
+        <button class="role-btn" data-role="estudiante">Estudiante</button>
+        <button class="role-btn" data-role="empresa">Empresa</button>
+        <button class="role-btn" data-role="admin">Admin</button>
+    </div>
+
+    <script src="<?php echo $publicPath; ?>/js/main.js"></script>
 </body>
-
 </html>
