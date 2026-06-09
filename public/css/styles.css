@@ -1591,3 +1591,272 @@ body {
   }
   .sidebar-filtros { display: none; }
 }
+/* ════════════════════════════════════════
+   PANELES — Empresa y Estudiante
+════════════════════════════════════════ */
+.panel-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 36px 24px 60px;
+}
+.panel-page-title {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.panel-page-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+/* Stats */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.stat-card-label {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.stat-card-value {
+  font-family: var(--font-display);
+  font-size: 36px;
+  font-weight: 800;
+  color: var(--text);
+  line-height: 1;
+}
+.stat-card-icon {
+  color: var(--accent);
+  font-size: 22px;
+  opacity: 0.85;
+}
+
+/* Section header */
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.section-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text);
+}
+.section-actions { display: flex; gap: 10px; }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color var(--trans), color var(--trans);
+}
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-accent {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: #0D1A13;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity var(--trans);
+}
+.btn-accent:hover { opacity: 0.88; }
+
+/* Tablas compartidas */
+.ofertas-table,
+.postulaciones-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--surface);
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.ofertas-table thead tr,
+.postulaciones-table thead tr { border-bottom: 0.5px solid var(--border); }
+
+.ofertas-table th,
+.postulaciones-table th {
+  text-align: left;
+  padding: 12px 16px;
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  white-space: nowrap;
+}
+.ofertas-table td,
+.postulaciones-table td {
+  padding: 14px 16px;
+  font-size: 13.5px;
+  color: var(--text);
+  border-bottom: 0.5px solid var(--border);
+  vertical-align: middle;
+}
+.ofertas-table tbody tr:last-child td,
+.postulaciones-table tbody tr:last-child td { border-bottom: none; }
+
+.ofertas-table tbody tr:hover,
+.postulaciones-table tbody tr:hover { background: var(--bg-hover); }
+
+.td-puesto {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+}
+.td-empresa, .td-ubicacion, .td-fecha {
+  color: var(--text-muted);
+  font-size: 12.5px;
+}
+.td-empresa { margin-top: 2px; }
+
+.badge-tipo {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 500;
+  border: 0.5px solid var(--border);
+  color: var(--muted);
+  background: transparent;
+  white-space: nowrap;
+}
+.td-postulantes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--accent);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+.link-accion {
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: opacity var(--trans);
+}
+.link-accion:hover { opacity: 0.75; }
+
+/* Estados de postulación */
+.badge-estado {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.estado-postulado       { background: rgba(150,150,150,.15); color: #9a9aaa;  border: 0.5px solid rgba(150,150,150,.3); }
+.estado-revision        { background: rgba(99,179,237,.15);  color: #63b3ed;  border: 0.5px solid rgba(99,179,237,.3); }
+.estado-preseleccionado { background: rgba(180,120,60,.15);  color: #c8925a;  border: 0.5px solid rgba(180,120,60,.3); }
+.estado-rechazado       { background: rgba(212,24,61,.12);   color: #e05577;  border: 0.5px solid rgba(212,24,61,.3); }
+.estado-contacto        { background: rgba(46,204,154,.12);  color: #2ECC9A;  border: 0.5px solid rgba(46,204,154,.3); }
+
+/* Detalle expandible */
+.detalle-row { display: none; }
+.detalle-row.open { display: table-row; }
+.detalle-row td {
+  background: var(--bg);
+  padding: 20px 24px;
+  border-bottom: 0.5px solid var(--border);
+}
+.detalle-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.detalle-block-title {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.detalle-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+}
+.detalle-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.detalle-tag {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11.5px;
+  border: 0.5px solid var(--border);
+  color: var(--muted);
+}
+.btn-ver-oferta {
+  margin-top: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: #0D1A13;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity var(--trans);
+}
+.btn-ver-oferta:hover { opacity: 0.88; }
+
+.toggle-detalle {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  white-space: nowrap;
+  transition: opacity var(--trans);
+}
+.toggle-detalle:hover { opacity: 0.75; }

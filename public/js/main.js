@@ -393,6 +393,7 @@ const KROW_ROLES = {
       { label: 'Inicio',       url: '/proyecto_krow/index.php',  active: true  },
       { label: 'Panel Empresa',url: '#',                         active: false },
       { label: 'Mis Ofertas',  url: '#',                         active: false },
+      { label: 'Empresas',  url: '#',                         active: false },
       { label: 'Ayuda',        url: '/proyecto_krow/vistas/ayuda.php', active: false },
     ],
     rightPanel: () => `
