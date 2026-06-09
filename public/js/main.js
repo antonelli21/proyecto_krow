@@ -324,3 +324,179 @@ if (document.readyState === 'loading') {
 } else {
   animateFilterGroups();
 }
+/* ════════════════════════════════════════
+   11. SISTEMA DE ROLES — KROW
+   Gestiona nav, panel derecho y acciones
+   de header según el rol del usuario.
+════════════════════════════════════════ */
+ 
+const KROW_ROLES = {
+  invitado: {
+    nav: [
+      { label: 'Inicio',           url: '/proyecto_krow/index.php',              active: true  },
+      { label: 'Empresas',         url: '/proyecto_krow/vistas/auth/login.php',  active: false },
+      { label: 'Mis Postulaciones',url: '/proyecto_krow/vistas/auth/login.php',  active: false },
+      { label: 'Ayuda',            url: '/proyecto_krow/vistas/ayuda.php',        active: false },
+    ],
+    rightPanel: () => `
+      <div class="panel-card cta-card">
+        <p class="panel-card-title">Encontrá tu primer trabajo</p>
+        <p>Registrate gratis y accedé a cientos de ofertas para estudiantes UTN.</p>
+        <a href="/proyecto_krow/vistas/auth/registro-estudiante.php" class="btn-primary-sm">Crear cuenta</a>
+        <a href="/proyecto_krow/vistas/auth/login.php" class="btn-ghost-sm" style="display:block;text-align:center;margin-top:6px">Ya tengo cuenta</a>
+      </div>
+      <div class="panel-card featured-card">
+        <div class="featured-badge"><i class="bi bi-star-fill"></i> Destacado</div>
+        <p class="featured-title">Senior Backend Engineer</p>
+        <p class="featured-company">MegaCorp Technologies</p>
+        <button class="btn-quick-apply" onclick="location.href='/proyecto_krow/vistas/auth/login.php'">Postularme rápido</button>
+      </div>
+    `,
+  },
+  estudiante: {
+    nav: [
+      { label: 'Inicio',           url: '/proyecto_krow/index.php',                                  active: true  },
+      { label: 'Empresas',         url: '/proyecto_krow/vistas/estudiante/empresas-lista.php',        active: false },
+      { label: 'Mis Postulaciones',url: '/proyecto_krow/vistas/estudiante/postulaciones-lista.php',   active: false },
+      { label: 'Ayuda',            url: '/proyecto_krow/vistas/ayuda.php',                            active: false },
+    ],
+    rightPanel: () => `
+      <div class="panel-card">
+        <p class="panel-card-title">Mis Estadísticas</p>
+        <div class="stat-row"><span class="stat-label">Postulaciones enviadas</span><span class="stat-value">24</span></div>
+        <div class="stat-row"><span class="stat-label">Empresas que te aceptaron</span><span class="stat-value">8</span></div>
+        <div class="stat-row"><span class="stat-label">En revisión</span><span class="stat-value">12</span></div>
+      </div>
+      <div class="panel-card featured-card">
+        <div class="featured-badge"><i class="bi bi-star-fill"></i> Destacado</div>
+        <p class="featured-title">Senior Backend Engineer</p>
+        <p class="featured-company">MegaCorp Technologies</p>
+        <button class="btn-quick-apply">Postularme rápido</button>
+      </div>
+      <div class="panel-card">
+        <p class="panel-card-title">Últimas empresas vistas</p>
+        <div class="companies-grid">
+          <div class="company-thumb"><span>TC</span></div>
+          <div class="company-thumb"><span>DS</span></div>
+          <div class="company-thumb"><span>MC</span></div>
+          <div class="company-thumb"><span>DC</span></div>
+        </div>
+      </div>
+    `,
+  },
+  empresa: {
+    nav: [
+      { label: 'Inicio',       url: '/proyecto_krow/index.php',  active: true  },
+      { label: 'Panel Empresa',url: '#',                         active: false },
+      { label: 'Mis Ofertas',  url: '#',                         active: false },
+      { label: 'Ayuda',        url: '/proyecto_krow/vistas/ayuda.php', active: false },
+    ],
+    rightPanel: () => `
+      <div class="panel-card">
+        <p class="panel-card-title">Panel Empresa</p>
+        <div class="stat-row"><span class="stat-label">Ofertas activas</span><span class="stat-value" style="color:#2ECC9A">7</span></div>
+        <div class="stat-row"><span class="stat-label">Postulantes recibidos</span><span class="stat-value" style="color:#2ECC9A">143</span></div>
+        <div class="stat-row"><span class="stat-label">Entrevistas pautadas</span><span class="stat-value" style="color:#2ECC9A">12</span></div>
+        <button class="btn-new-offer">+ Nueva Oferta</button>
+      </div>
+      <div class="panel-card">
+        <p class="panel-card-title">Postulantes destacados</p>
+        <div class="companies-grid">
+          <div class="company-thumb"><span>MA</span></div>
+          <div class="company-thumb"><span>LG</span></div>
+          <div class="company-thumb"><span>RD</span></div>
+          <div class="company-thumb"><span>SV</span></div>
+        </div>
+      </div>
+    `,
+  },
+  admin: {
+    nav: [
+      { label: 'Inicio',      url: '/proyecto_krow/index.php',          active: true  },
+      { label: 'Administrar', url: '#',                                  active: false },
+      { label: 'Usuarios',    url: '#',                                  active: false },
+      { label: 'Reportes',    url: '#',                                  active: false },
+      { label: 'Ayuda',       url: '/proyecto_krow/vistas/ayuda.php',    active: false },
+    ],
+    rightPanel: () => `
+      <div class="panel-card">
+        <p class="panel-card-title">Administración</p>
+        <div class="admin-alert"><i class="bi bi-exclamation-triangle-fill"></i> 3 ofertas pendientes de revisión</div>
+        <div class="admin-alert" style="background:rgba(46,204,154,.08);border-color:rgba(46,204,154,.3);color:#2ECC9A">
+          <i class="bi bi-people-fill"></i> 8 nuevos registros hoy
+        </div>
+        <div class="stat-row"><span class="stat-label">Usuarios totales</span><span class="stat-value">1.2k</span></div>
+        <div class="stat-row"><span class="stat-label">Empresas activas</span><span class="stat-value">38</span></div>
+        <div class="stat-row"><span class="stat-label">Ofertas publicadas</span><span class="stat-value">124</span></div>
+      </div>
+    `,
+  },
+};
+ 
+/**
+ * Aplica un rol al layout: actualiza nav, acciones de header y panel derecho.
+ * @param {string} role  - 'invitado' | 'estudiante' | 'empresa' | 'admin'
+ */
+function krowSetRole(role) {
+  const data = KROW_ROLES[role];
+  if (!data) return;
+ 
+  /* ── Nav ── */
+  const nav = document.getElementById('header-nav');
+  if (nav) {
+    nav.innerHTML = data.nav.map(item =>
+      `<a href="${item.url}" class="nav-link${item.active ? ' active' : ''}">${item.label}</a>`
+    ).join('');
+  }
+ 
+  /* ── Header actions ── */
+  const loggedIn   = document.getElementById('logged-in-actions');
+  const guestEl    = document.getElementById('guest-actions');
+ 
+  if (role === 'invitado') {
+    if (loggedIn) loggedIn.style.display = 'none';
+    if (guestEl)  guestEl.style.display  = 'flex';
+  } else {
+    if (loggedIn) loggedIn.style.display = 'flex';
+    if (guestEl)  guestEl.style.display  = 'none';
+ 
+    const labelMap  = { estudiante: 'Mi Cuenta', empresa: 'Mi Empresa', admin: 'Admin' };
+    const badgeMap  = { estudiante: 'Est.', empresa: 'Emp.', admin: 'Adm.' };
+ 
+    const avatarEl  = document.getElementById('avatar-letter');
+    const labelEl   = document.getElementById('account-label');
+    const badgeEl   = document.getElementById('account-role-badge');
+    const perfilEl  = document.getElementById('link-perfil');
+ 
+    if (avatarEl) avatarEl.textContent = role.charAt(0).toUpperCase();
+    if (labelEl)  labelEl.textContent  = labelMap[role] || 'Mi Cuenta';
+    if (badgeEl) {
+      badgeEl.textContent = badgeMap[role] || '';
+      badgeEl.className   = `role-badge ${role}`;
+    }
+    if (perfilEl) {
+      perfilEl.href = `/proyecto_krow/vistas/${role}/perfil-${role}.php`;
+    }
+  }
+ 
+  /* ── Right panel ── */
+  const panel = document.getElementById('right-panel');
+  if (panel) panel.innerHTML = data.rightPanel();
+ 
+  /* ── Role switcher buttons ── */
+  document.querySelectorAll('.role-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.role === role);
+  });
+}
+ 
+/* ── Init desde PHP (data-role en <html>) o default estudiante ── */
+document.addEventListener('DOMContentLoaded', () => {
+  const roleFromPHP = document.documentElement.dataset.role || 'invitado';
+  krowSetRole(roleFromPHP);
+ 
+  /* Role switcher demo (solo si existe en la página) */
+  document.querySelectorAll('.role-btn').forEach(btn => {
+    btn.addEventListener('click', () => krowSetRole(btn.dataset.role));
+  });
+});
+ 
