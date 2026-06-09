@@ -1,7 +1,7 @@
 <?php
 // 1. CONFIGURAR RUTA BASE DEL PROYECTO (¡Faltaba esto!)
 if (!isset($basePath)) {
-    $basePath = '/proyecto_krow';
+    $basePath = 'guardalo_aca/proyecto_krow';
 }
 if (!isset($publicPath)) {
     $publicPath = $basePath . '/public';
@@ -23,7 +23,7 @@ if (!isset($navItems) || !is_array($navItems)) {
         $navItems = [
             ['url' => $basePath . '/index.php', 'label' => 'Inicio', 'active' => false],
             ['url' => $basePath . '/vistas/estudiante/empresas-lista.php', 'label' => 'Empresas', 'active' => false],
-            ['url' => $basePath . '/vistas/estudiante/postulaciones-lista.php', 'label' => 'Mis Postulaciones', 'active' => false],
+            ['url' => $basePath . '/vistas/estudiante/hom.php', 'label' => 'Mis Postulaciones', 'active' => false],
             ['url' => $basePath . '/vistas/ayuda.php', 'label' => 'Ayuda', 'active' => false],
         ];
     } elseif ($rol === 'invitado') { 
@@ -37,7 +37,7 @@ if (!isset($navItems) || !is_array($navItems)) {
     } elseif ($rol === 'empresa') {
         $navItems = [
             ['url' => $basePath . '/index.php', 'label' => 'Inicio', 'active' => false],
-            ['url' => '#', 'label' => 'Panel Empresa', 'active' => false],
+            ['url' => '/vistas/home-empresa', 'label' => 'Panel Empresa', 'active' => false],
             ['url' => $basePath . '/vistas/ayuda.php', 'label' => 'Ayuda', 'active' => false],
         ];
     } elseif ($rol === 'admin') {
