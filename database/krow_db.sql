@@ -295,7 +295,6 @@ CREATE TABLE oferta_habilidad (
     FOREIGN KEY (id_habilidad)
         REFERENCES habilidad(id_habilidad)
 );
-commit;
 
 CREATE TABLE provincia (
     id_provincia INT AUTO_INCREMENT PRIMARY KEY,
@@ -312,3 +311,35 @@ CREATE TABLE localidad (
     FOREIGN KEY (id_provincia)
         REFERENCES provincia(id_provincia)
 );
+
+alter table empresa add column id_localidad INT,
+    add foreign key (id_localidad) 
+    references localidad(id_localidad)
+);
+
+alter table empresa add column id_provincia INT,
+    add foreign key (id_provincia) 
+    references provincia(id_provincia)
+);
+
+alter table estudiante add column id_localidad INT,
+    add foreign key (id_localidad) 
+    references localidad(id_localidad)
+);
+
+alter table estudiante add column id_provincia INT,
+    add foreign key (id_provincia) 
+    references provincia(id_provincia)
+);
+
+alter table oferta add column id_provincia INT,
+    add foreign key (id_provincia) 
+    references provincia(id_provincia)
+);
+
+alter table oferta add column id_localidad INT,
+    add foreign key (id_localidad) 
+    references localidad(id_localidad)
+);
+
+commit;
