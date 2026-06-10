@@ -1,6 +1,25 @@
 CREATE DATABASE IF NOT EXISTS krow;
 USE krow;
 
+
+
+CREATE TABLE provincia (
+    id_provincia INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE localidad (
+    id_localidad INT AUTO_INCREMENT PRIMARY KEY,
+
+    id_provincia INT NOT NULL,
+
+    nombre VARCHAR(100) NOT NULL,
+
+    FOREIGN KEY (id_provincia)
+        REFERENCES provincia(id_provincia)
+);
+
+
 CREATE TABLE usuario (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(100) UNIQUE NOT NULL,
@@ -107,7 +126,9 @@ CREATE TABLE empresa (
     fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     FOREIGN KEY (id_usuario)
-    REFERENCES usuario(id_usuario)
+    REFERENCES usuario(id_usuario),
+    FOREIGN KEY (id_localidad)
+        REFERENCES localidad(id_localidad)
 );
 
 
@@ -148,9 +169,8 @@ CREATE TABLE oferta (
 	salario_max INT UNSIGNED,
     
     
-      id_localidad INT,
-    ),
-
+    id_localidad INT,
+    
     fecha_publicacion DATETIME DEFAULT CURRENT_TIMESTAMP,
 
     fecha_cierre DATE,
@@ -162,9 +182,9 @@ CREATE TABLE oferta (
     ) DEFAULT 'Activa',
 
     FOREIGN KEY (id_empresa)
-    REFERENCES empresa(id_empresa)
+        REFERENCES empresa(id_empresa),
     FOREIGN KEY (id_localidad)
-    REFERENCES localidad(id_localidad
+        REFERENCES localidad(id_localidad)
 );
 
 
@@ -296,50 +316,28 @@ CREATE TABLE oferta_habilidad (
         REFERENCES habilidad(id_habilidad)
 );
 
-CREATE TABLE provincia (
-    id_provincia INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(100) UNIQUE NOT NULL
-);
 
-CREATE TABLE localidad (
-    id_localidad INT AUTO_INCREMENT PRIMARY KEY,
-
-    id_provincia INT NOT NULL,
-
-    nombre VARCHAR(100) NOT NULL,
-
-    FOREIGN KEY (id_provincia)
-        REFERENCES provincia(id_provincia)
-);
 
 alter table empresa add column id_localidad INT,
     add foreign key (id_localidad) 
-    references localidad(id_localidad)
-);
+    references localidad(id_localidad);
+
 
 alter table empresa add column id_provincia INT,
     add foreign key (id_provincia) 
-    references provincia(id_provincia)
-);
+    references provincia(id_provincia);
+
 
 alter table estudiante add column id_localidad INT,
     add foreign key (id_localidad) 
-    references localidad(id_localidad)
-);
+    references localidad(id_localidad);
+
 
 alter table estudiante add column id_provincia INT,
     add foreign key (id_provincia) 
-    references provincia(id_provincia)
-);
+    references provincia(id_provincia);
+
 
 alter table oferta add column id_provincia INT,
     add foreign key (id_provincia) 
-    references provincia(id_provincia)
-);
-
-alter table oferta add column id_localidad INT,
-    add foreign key (id_localidad) 
-    references localidad(id_localidad)
-);
-
-commit;
+    references provincia(id_provincia);
