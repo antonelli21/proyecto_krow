@@ -6,8 +6,8 @@
 
 /* ── Variables ── */
 :root {
-  --bg:             #ffffff;
-  --surface:        #bebebe;
+  --bg:             #e6d9d9;
+  --surface:        #cfd6ce;
   --primary:        #0D4F3C;
   --accent:         #2ECC9A;
   --text:           #000000;
@@ -1458,6 +1458,50 @@ body {
 }
 .role-badge.estudiante { background: rgba(46,204,154,.15);  color: #2ECC9A; }
 .role-badge.empresa    { background: rgba(99,179,237,.15);  color: #63b3ed; }
+
+/* Perfil: etiquetas blancas y valores dorados en modo oscuro */
+[data-theme="dark"] .perfil-card .info-label,
+[data-theme="dark"] .perfil-card dt {
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] .perfil-card .info-value,
+[data-theme="dark"] .perfil-card dd {
+  color: var(--accent) !important;
+}
+
+[data-theme="dark"] .perfil-header-card .text-muted {
+  color: rgba(255,255,255,0.78) !important;
+}
+
+[data-theme="dark"] .perfil-header-card .card-title,
+[data-theme="dark"] .perfil-header-card h1,
+[data-theme="dark"] .perfil-header-card h2,
+[data-theme="dark"] .perfil-header-card strong {
+  color: #FFFFFF !important;
+}
+
+.perfil-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--primary);
+  background: var(--accent-dim);
+  border: 2px solid rgba(46,204,154,.4);
+}
+
+[data-theme="dark"] .perfil-avatar {
+  color: var(--accent);
+  background: rgba(212,168,67,.12);
+  border-color: rgba(212,168,67,.5);
+}
+
 .role-badge.admin      { background: rgba(237,137,54,.15);  color: #ed8936; }
  
 /* ════════════════════════════════════════

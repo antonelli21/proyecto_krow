@@ -337,10 +337,12 @@ if (document.readyState === 'loading') {
 const KROW_ROLES = {
   invitado: {
     nav: [
-      { label: 'Inicio',           url: '/proyecto_krow/index.php',              active: true  },
-      { label: 'Empresas',         url: '/proyecto_krow/vistas/auth/login.php',  active: false },
-      { label: 'Mis Postulaciones',url: '/proyecto_krow/vistas/auth/login.php',  active: false },
-      { label: 'Ayuda',            url: '/proyecto_krow/vistas/ayuda.php',        active: false },
+      { label: 'Inicio',           url: '/guardalo_aca/proyecto_krow/index.php',              active: true  },
+      { label: 'Empresas',         url: '/guardalo_aca/proyecto_krow/vistas/auth/login.php',  active: false },
+      { label: 'Mis Postulaciones',url: '/guardalo_aca/proyecto_krow/vistas/auth/login.php',  active: false },
+      { label: 'Ayuda',            url: '/guardalo_aca/proyecto_krow/vistas/ayuda.php',        active: false },
+            
+
     ],
     rightPanel: () => `
       <div class="panel-card cta-card">
@@ -359,10 +361,11 @@ const KROW_ROLES = {
   },
   estudiante: {
     nav: [
-      { label: 'Inicio',           url: '/proyecto_krow/index.php',                                  active: true  },
-      { label: 'Empresas',         url: '/proyecto_krow/vistas/estudiante/empresas-lista.php',        active: false },
-      { label: 'Mis Postulaciones',url: '/proyecto_krow/vistas/estudiante/postulaciones-lista.php',   active: false },
-      { label: 'Ayuda',            url: '/proyecto_krow/vistas/ayuda.php',                            active: false },
+      { label: 'Inicio',           url: '/guardalo_aca/proyecto_krow/index.php',                                            active: true  },
+      { label: 'Empresas',         url: '/proyecto_krow/vistas/empresas-lista.php',                            active: false },
+      { label: 'Mis Postulaciones',url: '/guardalo_aca/proyecto_krow/vistas/estudiante/home-estudiante.php',   active: false },
+      { label: 'Ayuda',            url: '/guardalo_aca/proyecto_krow/vistas/ayuda.php',                        active: false },
+
     ],
     rightPanel: () => `
       <div class="panel-card">
@@ -390,11 +393,10 @@ const KROW_ROLES = {
   },
   empresa: {
     nav: [
-      { label: 'Inicio',       url: '/proyecto_krow/index.php',  active: true  },
-      { label: 'Panel Empresa',url: '#',                         active: false },
-      { label: 'Mis Ofertas',  url: '#',                         active: false },
-      { label: 'Empresas',  url: '#',                         active: false },
-      { label: 'Ayuda',        url: '/proyecto_krow/vistas/ayuda.php', active: false },
+      { label: 'Inicio',       url: '/guardalo_aca/proyecto_krow/index.php',                                                active: true  },
+      { label: 'Panel Empresa',url: '/guardalo_aca/proyecto_krow/vistas/empresa/home-empresa.php/',                         active: false },
+      { label: 'Empresas',     url: 'guardalo_aca/proyecto_krow/vistas/empresas-lista.php',                                 active: false },
+      { label: 'Ayuda',        url: '/proyecto_krow/vistas/ayuda.php',                                                      active: false },
     ],
     rightPanel: () => `
       <div class="panel-card">
@@ -479,24 +481,24 @@ function krowSetRole(role) {
     const menu = document.getElementById('account-menu');
     if (menu) {
       menu.innerHTML = `
-        <a href="/proyecto_krow/vistas/${role}/perfil-${role}.php" id="link-perfil" class="dropdown-item" role="menuitem">
+        <a href="/guardalo_aca/proyecto_krow/vistas/${role}/perfil-${role}.php" id="link-perfil" class="dropdown-item" role="menuitem">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
           Mi Perfil
         </a>
-        <a href="/proyecto_krow/vistas/mensajes.php" class="dropdown-item" role="menuitem">
+        <a href="/guardalo_aca/proyecto_krow/vistas/mensajes.php" class="dropdown-item" role="menuitem">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           Mensajes
         </a>
-        <a href="/proyecto_krow/vistas/notificaciones.php" class="dropdown-item" role="menuitem">
+        <a href="/guardalo_aca/proyecto_krow/vistas/notificaciones.php" class="dropdown-item" role="menuitem">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           Notificaciones
         </a>
-        <a href="/proyecto_krow/vistas/configuracion.php" class="dropdown-item" role="menuitem">
+        <a href="/guardalo_aca/proyecto_krow/vistas/configuracion.php" class="dropdown-item" role="menuitem">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
           Configuración
         </a>
         <hr class="dropdown-divider">
-        <a href="/proyecto_krow/src/logout.php" class="dropdown-item dropdown-item-danger" role="menuitem">
+        <a href="/guardalo_aca/proyecto_krow/src/logout.php" class="dropdown-item dropdown-item-danger" role="menuitem">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
           Cerrar sesión
         </a>`;
